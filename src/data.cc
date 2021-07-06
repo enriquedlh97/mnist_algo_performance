@@ -1,0 +1,25 @@
+#include "data.hpp"
+
+// Implements the methods defined in data.hpp
+
+void data::set_feature_vector(std::vector<uint8_t> *vect)
+{
+    feature_vector = vect;
+}
+void data::vappend_to_feature_vector(uint8_t val)
+{
+    feature_vector->push_back(val);
+}
+void data::set_label(uint8_t val)
+{
+    label = val;
+}
+void data::set_enumerated_label(int val)
+{
+    enum_label = val;
+}
+
+int data::get_feature_vector_size()
+{
+    return feature_vector->size();
+}
