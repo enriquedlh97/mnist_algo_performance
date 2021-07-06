@@ -6,7 +6,7 @@ void data::set_feature_vector(std::vector<uint8_t> *vect)
 {
     feature_vector = vect;
 }
-void data::vappend_to_feature_vector(uint8_t val)
+void data::append_to_feature_vector(uint8_t val)
 {
     feature_vector->push_back(val);
 }
