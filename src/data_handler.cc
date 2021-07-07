@@ -1,8 +1,18 @@
 #include "data_handler.hpp"
 
 // Implementation of methods defined in data_handler.hpp
-data_handler::data_handler();
-data_handler::~data_handler();
+data_handler::data_handler()
+{
+    // Allocating on heap
+    data_array = new std::vector<data *>;
+    test_data = new std::vector<data *>;
+    training_data = new std::vector<data *>;
+    validation_data = new std::vector<data *>;
+}
+data_handler::~data_handler()
+{
+    // Free dynamically allocated stuff
+}
 
 // Data and label files are read separately since they are separated
 void data_handler::read_feature_vector(std::string path); // Reads input data, receives a string as argument which contians the path to the data file
