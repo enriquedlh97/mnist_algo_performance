@@ -38,12 +38,12 @@ public:
     void split_data(); // Performs train, test and vlaidation split
     void count_classes();
 
-    uint32_t convert_tolittle_endian(const unsigned char *bytes);
+    uint32_t convert_to_little_endian(const unsigned char *bytes);
 
     // Allow to return the actual data sets
-    std::vector<data *> * get_training_data();
-    std::vector<data *> * get_test_data();
-    std::vector<data *> * get_validaiton_data();
+    std::vector<data *> *get_training_data();
+    std::vector<data *> *get_test_data();
+    std::vector<data *> *get_validaiton_data();
 };
 
 #endif

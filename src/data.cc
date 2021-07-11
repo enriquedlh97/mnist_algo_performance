@@ -2,6 +2,16 @@
 
 // Implements the methods defined in data.hpp
 
+data::data()
+{
+    // By initializing to uint8_t we do not have to do it in the for loop on data_handler right after
+    // getting the file header
+    feature_vector = new std::vector<uint8_t>;
+}
+data::~data()
+{
+
+}
 void data::set_feature_vector(std::vector<uint8_t> *vect)
 {
     feature_vector = vect;
