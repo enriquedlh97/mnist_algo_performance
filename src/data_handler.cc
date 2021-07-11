@@ -19,7 +19,7 @@ void data_handler::read_feature_vector(std::string path) // Reads input data, re
 {
     uint32_t header[4]; // array of size 4. |MAGIC|NUM IMAGES|ROW SIZE|COL SIZE|
     unsigned char bytes[4]// char is a one byte size. Four of this allow to read all the 32 bits
-    FILE *f = fopen(path.c_str(), "r") // "r" indicates we open it in read mode
+    FILE *f = fopen(path.c_str(), "r"); // "r" indicates we open it in read mode
     if(f) // If the file pointer is not null, continue
     {
         for(int i = 0; i < 4, i++) // Less than four because we know that the header contians 4 values
@@ -28,6 +28,14 @@ void data_handler::read_feature_vector(std::string path) // Reads input data, re
             {
                 header[i] = convert_to_little_endian(bytes);
             }
+        }
+        print("Fonde getting file header.\n");
+        int image_Size = header[2] * header[3]; // Image size
+        for(int i = 0; i < header[1]; ++) // Iterates over the numbe rof images
+        {
+            // While we iterate over number of images we need to iterate ove the next image size elemnts in that file
+            data *d = new data(); // Initializes new data container
+            d->set_feature_vector()
         }
     }   
 }

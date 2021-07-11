@@ -13,6 +13,8 @@ class data
     int enum_label;                       // Used for label encoding, for exmaple, A corresponds to 1, B to 2, etc.
 
 public:
+    data();  // Default constructor
+    ~data(); // Destructor
     void set_feature_vector(std::vector<uint8_t> *);
     void append_to_feature_vector(uint8_t);
     void set_label(uint8_t);
