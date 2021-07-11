@@ -23,14 +23,14 @@ void data_handler::read_feature_vector(std::string path) // Reads input data, re
     FILE *f = fopen(path.c_str(), "r"); // "r" indicates we open it in read mode
     if (f)                              // If the file pointer is not null, continue
     {
-        for (int i = 0; i < 4, i++) // Less than four because we know that the header contians 4 values
+        for (int i = 0; i < 4; i++) // Less than four because we know that the header contians 4 values
         {
             if (fread(bytes, sizeof(bytes), 1, f))
             {
                 header[i] = convert_to_little_endian(bytes);
             }
         }
-        printf("Fonde getting file header.\n");
+        printf("Donde getting input file header.\n");
         int image_size = header[2] * header[3]; // Image size
         for (int i = 0; i < header[1]; i++)     // Iterates over the numbe rof images
         {
@@ -62,9 +62,49 @@ void data_handler::read_feature_vector(std::string path) // Reads input data, re
         exit(1);
     }
 }
-void data_handler::read_feature_labels(std::string path);
-void data_handler::split_data(); // Performs train, test and vlaidation split
-void data_handler::count_classes();
+void data_handler::read_feature_labels(std::string path)
+{
+    uint32_t header[2];                 // array of size 2. |MAGIC|NUM IMAGES|
+    unsigned char bytes[2];             // char is a one byte size. Two of this allow to read all bits
+    FILE *f = fopen(path.c_str(), "r"); // "r" indicates we open it in read mode
+    if (f)                              // If the file pointer is not null, continue
+    {
+        for (int i = 0; i < 2; i++) // Less than four because we know that the header contians 4 values
+        {
+            if (fread(bytes, sizeof(bytes), 1, f))
+            {
+                header[i] = convert_to_little_endian(bytes);
+            }
+        }
+        printf("Donde getting label file header.\n");
+        for (int i = 0; i < header[1]; i++) // Iterates over the number of images
+        {
+            uint8_t element[1];
+            if (fread(element, sizeof(element), 1, f))
+            {
+                data_array->at(i)->set_label(element[0]);
+            }
+            else
+            {
+                printf("Error reading from file.\n");
+                exit(1);
+            }
+        }
+        printf("Successfully read and saved label.\n", data_array->size());
+    }
+    else
+    {
+        // This prins if there is no file pointer
+        printf("Could not find file.\n");
+        exit(1);
+    }
+}
+void data_handler::split_data() // Performs train, test and vlaidation split
+{
+}
+void data_handler::count_classes()
+{
+}
 
 uint32_t data_handler::convert_tolittle_endian(const unsigned char *bytes);
 
