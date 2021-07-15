@@ -163,11 +163,11 @@ void data_handler::count_classes()
 {
     // Essentially stores the values in a map of
     int count = 0;
-    for(unsigned i = 0; i < data_array->size(); i++)
+    for (unsigned i = 0; i < data_array->size(); i++)
     {
-        // If we find a key in the map that equals the current label then we do nothing; 
+        // If we find a key in the map that equals the current label then we do nothing;
         // otherwise, then the label is not in the map
-        if(class_map.find(data_array->at(i)->get_label()) == class_map.end())
+        if (class_map.find(data_array->at(i)->get_label()) == class_map.end())
         {
             class_map[data_array->at(i)->get_label()] = count;
             data_array->at(i)->set_enumerated_label(count);
@@ -181,6 +181,15 @@ void data_handler::count_classes()
 uint32_t data_handler::convert_to_little_endian(const unsigned char *bytes);
 
 // Allow to return the actual data sets
-std::vector<data *> *data_handler::get_training_data();
-std::vector<data *> *data_handler::get_test_data();
-std::vector<data *> *data_handler::get_validaiton_data();
+std::vector<data *> *data_handler::get_training_data()
+{
+    return training_data;
+}
+std::vector<data *> *data_handler::get_test_data()
+{
+    return test_data;
+}
+std::vector<data *> *data_handler::get_validaiton_data()
+{
+    return validation_data;
+}
