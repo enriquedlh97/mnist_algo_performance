@@ -161,6 +161,21 @@ void data_handler::split_data() // Performs train, test and vlaidation split
 }
 void data_handler::count_classes()
 {
+    // Essentially stores the values in a map of
+    int count = 0;
+    for(unsigned i = 0; i < data_array->size(); i++)
+    {
+        // If we find a key in the map that equals the current label then we do nothing; 
+        // otherwise, then the label is not in the map
+        if(class_map.find(data_array->at(i)->get_label()) == class_map.end())
+        {
+            class_map[data_array->at(i)->get_label()] = count;
+            data_array->at(i)->set_enumerated_label(count);
+            count++;
+        }
+    }
+    num_classes = count;
+    printf("Successfully extratec %d unique calsses.\n", num_classes);
 }
 
 uint32_t data_handler::convert_to_little_endian(const unsigned char *bytes);
