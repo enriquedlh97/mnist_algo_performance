@@ -178,9 +178,14 @@ void data_handler::count_classes()
     printf("Successfully extratec %d unique calsses.\n", num_classes);
 }
 
-uint32_t data_handler::convert_to_little_endian(const unsigned char *bytes);
+uint32_t data_handler::convert_to_little_endian(const unsigned char *bytes)
+{
+    // The 0th byte is shifted to the left. Its 8 bits are shifted to the left 24 bits. Essentially, the 0th byte becomes the third byte
+    // Then, the second byte is shifted to the left 16 bits
+    return (uint32_t) ((bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | (bytes[3]));
+}
 
-// Allow to return the actual data sets
+// These methods allow to return the actual data sets
 std::vector<data *> *data_handler::get_training_data()
 {
     return training_data;
