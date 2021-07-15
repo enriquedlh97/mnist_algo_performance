@@ -51,7 +51,7 @@ void data_handler::read_feature_vector(std::string path) // Reads input data, re
                     exit(1);
                 }
             }
-            data_array->push_back(d);
+            data_array->push_back(d); // data_array just stores a pointer to the object
         }
         printf("Success. %lu feature vectors were read and saved.\n", data_array->size());
     }
@@ -101,12 +101,69 @@ void data_handler::read_feature_labels(std::string path)
 }
 void data_handler::split_data() // Performs train, test and vlaidation split
 {
+    // The data is used stored once even though there are three arrays. That is because we work with pointers essentially passing pointers
+    // to the correposnding parts of the original array
+
+    // Used for keeping track of the used indices
+    std::unordered_set<int> used_indexes;
+    int train_size = data_array->size() * TRAIN_SET_PERCENT;
+    int test_size = data_array->size() * TEST_SET_PERCENT;
+    int valid_size = data_array->size() * VALIDATION_SET_PERCENT;
+
+    // Training data
+    int count = 0;
+    while (count < train_size)
+    {
+        int rand_index = rand() % data_array->size(); // Generates number between 0 and data_array->size() - 1
+        // Then, we check if used_indexes contains this value
+        if (used_indexes.find(rand_index) == used_indexes.end())
+        {
+            // If the iterator is at the end, then that means that the value was not found and it can be used
+            training_data->push_back(data_array->at(rand_index));
+            used_indexes.insert(rand_index); // Marks it as used so that it can no longer be used
+            count++;
+        }
+    }
+
+    // Test data
+    count = 0;
+    while (count < test_size)
+    {
+        int rand_index = rand() % data_array->size(); // Generates number between 0 and data_array->size() - 1
+        // Then, we check if used_indexes contains this value
+        if (used_indexes.find(rand_index) == used_indexes.end())
+        {
+            // If the iterator is at the end, then that means that the value was not found and it can be used
+            test_data->push_back(data_array->at(rand_index));
+            used_indexes.insert(rand_index); // Marks it as used so that it can no longer be used
+            count++;
+        }
+    }
+
+    // Validation data
+    count = 0;
+    while (count < valid_size)
+    {
+        int rand_index = rand() % data_array->size(); // Generates number between 0 and data_array->size() - 1
+        // Then, we check if used_indexes contains this value
+        if (used_indexes.find(rand_index) == used_indexes.end())
+        {
+            // If the iterator is at the end, then that means that the value was not found and it can be used
+            validation_data->push_back(data_array->at(rand_index));
+            used_indexes.insert(rand_index); // Marks it as used so that it can no longer be used
+            count++;
+        }
+    }
+
+    printf("Training Data Size: %lu.\n", training_data->size());
+    printf("Test Data Size: %lu.\n", test_data->size());
+    printf("Validation Data Size: %lu.\n", validation_data->size());
 }
 void data_handler::count_classes()
 {
 }
 
-uint32_t data_handler::convert_tolittle_endian(const unsigned char *bytes);
+uint32_t data_handler::convert_to_little_endian(const unsigned char *bytes);
 
 // Allow to return the actual data sets
 std::vector<data *> *data_handler::get_training_data();
