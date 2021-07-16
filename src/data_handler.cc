@@ -90,7 +90,7 @@ void data_handler::read_feature_labels(std::string path)
                 exit(1);
             }
         }
-        printf("Successfully read and saved label.\n", data_array->size());
+        printf("Successfully read and saved label.\n");
     }
     else
     {
