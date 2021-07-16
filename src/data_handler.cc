@@ -18,7 +18,7 @@ data_handler::~data_handler()
 // Essentially builds the data array with the feature vectors
 void data_handler::read_feature_vector(std::string path) // Reads input data, receives a string as argument which contians the path to the data file
 {
-    uint32_t header[2];                 // array of size 4. |MAGIC|NUM IMAGES|ROW SIZE|COL SIZE|
+    uint32_t header[4];                 // array of size 4. |MAGIC|NUM IMAGES|ROW SIZE|COL SIZE|
     unsigned char bytes[4];             // char is a one byte size. Four of this allow to read all the 32 bits
     FILE *f = fopen(path.c_str(), "r"); // "r" indicates we open it in read mode
     if (f)                              // If the file pointer is not null, continue
@@ -28,13 +28,14 @@ void data_handler::read_feature_vector(std::string path) // Reads input data, re
             if (fread(bytes, sizeof(bytes), 1, f))
             {
                 header[i] = convert_to_little_endian(bytes);
+                //header[i] = (uint32_t) bytes[i];
             }
         }
         printf("Done getting input file header.\n");
         int image_size = header[2] * header[3]; // Image size
-        for (int i = 0; i < header[1]; i++)     // Iterates over the numbe rof images
+        for (int i = 0; i < header[1]; i++)     // Iterates over the number of images
         {
-            // While we iterate over number of images we need to iterate ove the next image size elemnts in that file
+            // While we iterate over number of images we need to iterate over the next image size elements in that file
             data *d = new data(); // Initializes new data container
 
             // This is because we need a one element array of size 8 bits
