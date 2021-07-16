@@ -18,7 +18,7 @@ data_handler::~data_handler()
 // Essentially builds the data array with the feature vectors
 void data_handler::read_feature_vector(std::string path) // Reads input data, receives a string as argument which contians the path to the data file
 {
-    uint32_t header[4];                 // array of size 4. |MAGIC|NUM IMAGES|ROW SIZE|COL SIZE|
+    uint32_t header[2];                 // array of size 4. |MAGIC|NUM IMAGES|ROW SIZE|COL SIZE|
     unsigned char bytes[4];             // char is a one byte size. Four of this allow to read all the 32 bits
     FILE *f = fopen(path.c_str(), "r"); // "r" indicates we open it in read mode
     if (f)                              // If the file pointer is not null, continue
