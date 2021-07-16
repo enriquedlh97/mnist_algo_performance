@@ -65,7 +65,7 @@ void data_handler::read_feature_vector(std::string path) // Reads input data, re
 void data_handler::read_feature_labels(std::string path)
 {
     uint32_t header[2];                 // array of size 2. |MAGIC|NUM IMAGES|
-    unsigned char bytes[2];             // char is a one byte size. Two of this allow to read all bits
+    unsigned char bytes[4];             // char is a one byte size. Two of this allow to read all bits
     FILE *f = fopen(path.c_str(), "r"); // "r" indicates we open it in read mode
     if (f)                              // If the file pointer is not null, continue
     {
