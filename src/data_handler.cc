@@ -32,7 +32,7 @@ void data_handler::read_feature_vector(std::string path) // Reads input data, re
             }
         }
         printf("Done getting input file header.\n");
-        int image_size = header[2] * header[3]; // Image size
+        int image_size = header[2]*header[3]; // Image size
         for (int i = 0; i < header[1]; i++)     // Iterates over the number of images
         {
             // While we iterate over number of images we need to iterate over the next image size elements in that file
@@ -42,7 +42,7 @@ void data_handler::read_feature_vector(std::string path) // Reads input data, re
             uint8_t element[1];
             for (int j = 0; j < image_size; j++)
             {
-                if (fread(element, sizeof(element), 1, f))
+                if(fread(element, sizeof(element), 1, f))
                 {
                     d->append_to_feature_vector(element[0]);
                 }
