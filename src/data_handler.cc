@@ -30,7 +30,7 @@ void data_handler::read_feature_vector(std::string path) // Reads input data, re
                 header[i] = convert_to_little_endian(bytes);
             }
         }
-        printf("Dond getting input file header.\n");
+        printf("Done getting input file header.\n");
         int image_size = header[2] * header[3]; // Image size
         for (int i = 0; i < header[1]; i++)     // Iterates over the numbe rof images
         {
@@ -76,7 +76,7 @@ void data_handler::read_feature_labels(std::string path)
                 header[i] = convert_to_little_endian(bytes);
             }
         }
-        printf("Dond getting label file header.\n");
+        printf("Done getting label file header.\n");
         for (int i = 0; i < header[1]; i++) // Iterates over the number of images
         {
             uint8_t element[1];
